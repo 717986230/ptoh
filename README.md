@@ -1,33 +1,63 @@
-# 万能裂变海报生成器 / Viral Poster Generator
+# 🎨 万能裂变海报生成器
 
-配置驱动的裂变海报引擎：一个 Canvas 渲染器 + JSON 模板 = 无限个玩法。
+**配置驱动的裂变海报引擎，一个渲染器 + JSON 模板 = 无限个玩法，持续更新**
 
-首发微信小程序 / H5，未来可出 App。所有图片拼接、头像裁剪、文字渲染 100% 在客户端 Canvas 完成，服务端只做拉配置和打点，几乎零服务器成本。
+这里收集可以直接上手的裂变海报玩法。每个模板都有自己的效果展示和使用说明，从新年求签开始，以后也会逐步收录打工人、准考证、工资条娱乐版和其他创意玩法。
 
-## 快速开始
+> 目前已收录 **3 个模板**，共用一个 Canvas 渲染器。选择感兴趣的玩法，先看效果，再跟着教程开始制作。
 
-1. 打开 `demo/index.html`，在线试玩工作台：改昵称、传头像、抽签、解锁、导出 750×1334 PNG。
-2. 看 `src/template-dsl.ts` 了解模板协议。
-3. 看 `templates/new-year-fortune.json`，复制一份改 `templateId`、`background`、`elements` 就是一个新模板，无需发版。
+## 📚 玩法合集
 
-## 目录
+### 🧧 新年求签
 
-- `src/template-dsl.ts` — 模块 1：万能 JSON 配置协议（TypeScript 定义）
-- `src/PosterRenderer.ts` — 模块 2：纯前端 Canvas 核心渲染器（小程序版）
-- `templates/` — 模板库：新年求签、打工人今日状态、准考证娱乐版
-- `demo/index.html` — 可运行的 Web 版工作台（同一套渲染逻辑）
-- `docs/replication-1000.md` — 一个方法复制 1000 次的流水线
+#### [新年求签](docs/viral-poster-generator.md)
 
-## 核心规则（已修正 PRD 的坑）
+上传头像、输入昵称，抽一签生成 750×1334 海报，分享到朋友圈，朋友扫码就能玩。
 
-- 头像不能静默获取：用 `chooseAvatar` 让用户自选，或上传，带 fallback。
-- 小程序码不能纯前端生成：云函数调 `wxacode.getUnlimited`，按 `templateId + sourceUid` 缓存到 OSS。
-- JSON 配置走静态托管 + CDN，带版本号；云函数只做二维码和打点，别每次打开都调云函数。
-- 分享要存随机种子：B 用户按 `sourceUid` 查库还原 A 的签文，光靠 URL 不够。
-- 广告解锁要服务端校验，水印直接画进 Canvas 像素里。
-- 求签、恶搞工资条、准考证等注意合规：别用官方 Logo，加“纯属娱乐”声明。
+**头像 + 昵称 + 随机签文** · **默认竖版 750×1334**
 
-## 变现与裂变
+| 新年求签 | 打工人今日状态 |
+| :---: | :---: |
+| ![新年求签预览](previews/new-year-fortune.svg) | ![打工人今日状态预览](previews/worker-status.svg) |
+| **准考证娱乐版** | **朋友圈海报** |
+| ![准考证娱乐版预览](previews/exam-fun.svg) | ![朋友圈海报预览](previews/new-year-fortune.svg) |
 
-- `unlock_mode: "ad"`：看激励视频解锁无水印高清图；广告加载失败时用分享解锁兜底。
-- 分享带参：`pages/index/index?templateId=xxx&sourceUid=yyy&seed=zzz`，B 进来先还原 A 的结果，再诱导“我也要测”。
+👉 **[查看 3 个模板介绍与完整使用教程](docs/viral-poster-generator.md)**
+
+### 💼 打工人今日状态
+
+生成一张“已疯 · 勿扰”的打工人海报，发朋友圈吐槽，朋友扫码测自己的今日状态。
+
+### 🎓 准考证娱乐版
+
+科目：发财，成绩：满分。纯属娱乐，非真实证件。
+
+## 🚀 开始使用
+
+先克隆合集，再选择安装 Skill：
+
+```bash
+git clone https://github.com/717986230/ptoh.git
+cd ptoh
+python3 scripts/install_skills.py --all
+```
+
+安装器不会覆盖已存在的同名 Skill。安装完成后开启新的对话，用 `$viral-poster-generator` 调用。
+
+👉 **[统一安装教程](docs/installation.md)** · **[效果与安装测试记录](docs/testing.md)**
+
+在线试玩：打开 `demo/index.html`，改昵称、传头像、抽签、解锁、导出 PNG，不用装小程序就能看效果。
+
+## 🧩 一个方法复制 1000 次
+
+一个渲染器 + 1000 个 JSON = 1000 个玩法，不用改代码、不发版。先测 10 个模板，找分享率最高的公式，再批量复制。
+
+👉 **[复制 1000 次的流水线](docs/replication-1000.md)**
+
+## ✨ 持续更新
+
+未来计划按用途整理更多裂变玩法，例如节日、红包封面、MBTI、社交媒体配图，以及趣味视觉实验。新模板完成并具备使用说明后，会加入对应分区。
+
+## 📄 许可证
+
+项目代码采用 [MIT License](LICENSE)。
